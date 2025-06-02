@@ -55,7 +55,7 @@ This project is a simple example repository with E2E tests written in Cypress. I
 
 - [Cypress](https://www.cypress.io/) – E2E testing framework
 - [mochawesome](https://github.com/adamgruber/mochawesome) – test report generation
-- [cypress-image-diff-html-report](https://github.com/mjhea0/cypress-image-diff-html-report) – visual reports
+- [cypress-image-diff-html-report](https://github.com/kien-ht/cypress-image-diff-html-report) – visual reports
 - [@faker-js/faker](https://github.com/faker-js/faker) – test data generation
 
 ---

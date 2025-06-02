@@ -11,11 +11,12 @@ module.exports = defineConfig({
     },
     baseUrl: "http://practice.automationtesting.in",
   },
-
-  component: {
-    devServer: {
-      framework: "vue",
-      bundler: "vite",
-    },
-  },
-});
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: false,
+    json: true,
+    charts: true,
+  }
+})

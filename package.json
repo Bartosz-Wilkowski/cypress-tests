@@ -1,0 +1,17 @@
+{
+  "name": "cypress-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Bartosz-Wilkowski/cypress-tests.git",
+  "author": "bwilkowski <bartoszwilkowski3@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "cypress": "^14.4.0"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "dependencies": {
+    "cypress-image-diff-html-report": "^2.2.0",
+    "cypress-image-diff-js": "^2.4.0"
+  }
+}

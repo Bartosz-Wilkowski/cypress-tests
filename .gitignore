@@ -1,0 +1,5 @@
+node_modules
+cypress/fixtures/user-data.json
+cypress/downloads
+cypress/screenshots
+cypress/videos

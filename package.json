@@ -10,7 +10,7 @@
     "merge:reports": "mochawesome-merge cypress/reports/*.json > cypress/reports/merged-report.json",
     "generate:mochawesome": "marge cypress/reports/merged-report.json --reportDir cypress/reports/html --reportTitle 'Test Report'",
     "report:visual:start": "cypress-image-diff-html-report start --reportJsonDir cypress/e2e/visual-testing-report",
-    "report:visual:generate": "cypress-image-diff-html-report generate --reportJsonDir cypress/e2e/visual-testing-report --reportHtmlDir cypress/e2e/visual-testing-report",
+    "report:visual:generate": "cypress-image-diff-html-report generate --reportJsonDir cypress/e2e/visual-testing-report --outputDir cypress/e2e/visual-testing-report",
     "report": "yarn merge:reports && yarn generate:mochawesome && yarn report:visual:generate",
     "start:report": "yarn report:visual:start"
   },

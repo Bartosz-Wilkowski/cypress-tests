@@ -1,0 +1,65 @@
+{
+  "total": 3,
+  "totalPassed": 3,
+  "totalFailed": 0,
+  "totalSuites": 3,
+  "suites": [
+    {
+      "name": "authentication.cy.js",
+      "path": "cypress/e2e/authentication.cy.js",
+      "tests": [
+        {
+          "status": "pass",
+          "name": "authentication.cy-masked-password",
+          "percentage": 0,
+          "failureThreshold": 0,
+          "specPath": "cypress/e2e/authentication.cy.js",
+          "specFilename": "authentication.cy.js",
+          "baselinePath": "cypress/e2e/visual-testing-screenshots/baseline/authentication.cy-masked-password.png",
+          "diffPath": "",
+          "comparisonPath": "cypress/e2e/visual-testing-screenshots/comparison/authentication.cy-masked-password.png"
+        }
+      ]
+    },
+    {
+      "name": "home-page.cy.js",
+      "path": "cypress/e2e/home-page.cy.js",
+      "tests": [
+        {
+          "status": "pass",
+          "name": "home-page.cy-header",
+          "percentage": 0,
+          "failureThreshold": 0,
+          "specPath": "cypress/e2e/home-page.cy.js",
+          "specFilename": "home-page.cy.js",
+          "baselinePath": "cypress/e2e/visual-testing-screenshots/baseline/home-page.cy-header.png",
+          "diffPath": "",
+          "comparisonPath": "cypress/e2e/visual-testing-screenshots/comparison/home-page.cy-header.png"
+        }
+      ]
+    },
+    {
+      "name": "purchase.cy.js",
+      "path": "cypress/e2e/purchase.cy.js",
+      "tests": [
+        {
+          "status": "pass",
+          "name": "purchase.cy-billing-details-error",
+          "percentage": 0,
+          "failureThreshold": 0,
+          "specPath": "cypress/e2e/purchase.cy.js",
+          "specFilename": "purchase.cy.js",
+          "baselinePath": "cypress/e2e/visual-testing-screenshots/baseline/purchase.cy-billing-details-error.png",
+          "diffPath": "",
+          "comparisonPath": "cypress/e2e/visual-testing-screenshots/comparison/purchase.cy-billing-details-error.png"
+        }
+      ]
+    }
+  ],
+  "startedAt": "2025-06-02T15:24:14.346Z",
+  "endedAt": "2025-06-02T15:26:18.985Z",
+  "duration": 116754,
+  "browserName": "electron",
+  "browserVersion": "130.0.6723.137",
+  "cypressVersion": "14.4.0"
+}

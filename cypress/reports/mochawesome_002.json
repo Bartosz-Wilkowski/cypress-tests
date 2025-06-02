@@ -1,0 +1,144 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-06-02T15:25:13.235Z",
+    "end": "2025-06-02T15:25:32.519Z",
+    "duration": 19284,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "15d85475-d0c2-4076-96a5-a0c9511f59c8",
+      "title": "",
+      "fullFile": "cypress/e2e/home-page.cy.js",
+      "file": "cypress/e2e/home-page.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "824a64b2-3e37-4ad6-946a-ec823daf5242",
+          "title": "Home page",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should display exactly three slider elements",
+              "fullTitle": "Home page should display exactly three slider elements",
+              "timedOut": null,
+              "duration": 5779,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// The Home page must contains only three sliders\ncy.get('.n2-ss-slide').should('have.length', 3);",
+              "err": {},
+              "uuid": "70b48c6d-6df0-42e7-b558-183832891c5d",
+              "parentUUID": "824a64b2-3e37-4ad6-946a-ec823daf5242",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should navigate to the product page when an Arrivals item is clicked",
+              "fullTitle": "Home page should navigate to the product page when an Arrivals item is clicked",
+              "timedOut": null,
+              "duration": 5515,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// The Home page must contains only three arrivals\ncy.get('ul.products').eq(1).click();\ncy.url().should('include', '/product/thinking-in-html/');",
+              "err": {},
+              "uuid": "17825c53-67ba-4325-b025-3d280514d860",
+              "parentUUID": "824a64b2-3e37-4ad6-946a-ec823daf5242",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should match the visual snapshot",
+              "fullTitle": "Home page should match the visual snapshot",
+              "timedOut": null,
+              "duration": 5083,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('[id=\"headerwrap\"]').invoke('css', 'display', 'none'); // Hide the header \ncy.get('.row_inner_wrapper').first().compareSnapshot('header', {\n  capture: 'viewport'\n});",
+              "err": {},
+              "uuid": "267a80bd-9505-4f31-9248-f7f074146514",
+              "parentUUID": "824a64b2-3e37-4ad6-946a-ec823daf5242",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "70b48c6d-6df0-42e7-b558-183832891c5d",
+            "17825c53-67ba-4325-b025-3d280514d860",
+            "267a80bd-9505-4f31-9248-f7f074146514"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 16377,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "charts": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

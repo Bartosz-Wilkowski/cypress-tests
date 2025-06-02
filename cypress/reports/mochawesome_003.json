@@ -1,0 +1,208 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 5,
+    "passes": 4,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-06-02T15:25:35.782Z",
+    "end": "2025-06-02T15:26:18.987Z",
+    "duration": 43205,
+    "testsRegistered": 5,
+    "passPercent": 80,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "bb8d9804-826b-4f75-bbec-8313846a99fc",
+      "title": "",
+      "fullFile": "cypress/e2e/purchase.cy.js",
+      "file": "cypress/e2e/purchase.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "13dfa43e-89fd-45cb-ab0b-f5dcaee21e99",
+          "title": "Purchase",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should add a product to the cart",
+              "fullTitle": "Purchase should add a product to the cart",
+              "timedOut": null,
+              "duration": 5875,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Functional Programming in JS').click();\ncy.location('pathname').should('include', '/product/functional-programming-in-js/');\ncy.get('.single_add_to_cart_button').click();\ncy.get('.woocommerce-message').should('be.visible').and('contain', '“Functional Programming in JS” has been added to your basket.');",
+              "err": {},
+              "uuid": "245d0838-706b-4c56-a726-bd3bd28a2547",
+              "parentUUID": "13dfa43e-89fd-45cb-ab0b-f5dcaee21e99",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should add a product to the cart using button in products list",
+              "fullTitle": "Purchase should add a product to the cart using button in products list",
+              "timedOut": null,
+              "duration": 1746,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('.add_to_cart_button').first().click();\ncy.get('.add_to_cart_button').first().should('have.class', 'added');",
+              "err": {},
+              "uuid": "4286c53a-01b8-4f43-a21d-1d327160e020",
+              "parentUUID": "13dfa43e-89fd-45cb-ab0b-f5dcaee21e99",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should proceed to checkout",
+              "fullTitle": "Purchase should proceed to checkout",
+              "timedOut": null,
+              "duration": 7096,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.addToBasket('Functional Programming in JS');\ncy.get('.checkout-button').click();\ncy.location('pathname').should('include', '/checkout/');\ncy.get('.woocommerce-checkout').should('be.visible');",
+              "err": {},
+              "uuid": "b9c3009a-f3b1-4bec-bc9b-0beceb3a63b8",
+              "parentUUID": "13dfa43e-89fd-45cb-ab0b-f5dcaee21e99",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [
+            {
+              "uuid": "7d42b426-0641-4994-8a77-6339651bbc41",
+              "title": "Proceed as a guest",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should fill in the checkout form and place an order",
+                  "fullTitle": "Purchase Proceed as a guest should fill in the checkout form and place an order",
+                  "timedOut": null,
+                  "duration": 16361,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('@guest').then(guest => {\n  // Fill in the billing details\n  cy.get('#billing_first_name').type(guest.firstName);\n  cy.get('#billing_last_name').type(guest.lastName);\n  cy.get('#billing_email').type(guest.email);\n  cy.get('#billing_phone').type(guest.phone);\n  cy.get('#billing_country').select(guest.country, {\n    force: true\n  });\n  cy.get('#billing_address_1').type(guest.streetAddress);\n  cy.get('#billing_address_2').type(guest.secondaryAddress);\n  cy.get('#billing_city').type(guest.city);\n  cy.get('#billing_state').select(guest.state, {\n    force: true\n  });\n  cy.get('#billing_postcode').type(guest.postcode);\n  // Select payment method\n  cy.get('#payment_method_cod').check(); // Select Cash on Delivery\n  // Place the order\n  cy.get('#place_order').click();\n  // Verify the order confirmation\n  cy.get('.woocommerce-thankyou-order-received').should('contain', 'Thank you. Your order has been received.');\n  cy.get('.woocommerce-thankyou-order-details').should('contain', 'Order number:').and('contain', 'Date:').and('contain', 'Payment method:').and('contain', 'Cash on Delivery');\n});",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 5000ms: expected '<ul.woocommerce-thankyou-order-details.order_details>' to contain 'Order number:'",
+                    "estack": "AssertionError: Timed out retrying after 5000ms: expected '<ul.woocommerce-thankyou-order-details.order_details>' to contain 'Order number:'\n    at Context.eval (webpack://cypress-tests/./cypress/e2e/purchase.cy.js:76:11)\n    at getRet (https://practice.automationtesting.in/__cypress/runner/cypress_runner.js:120576:20)\n    at tryCatcher (https://practice.automationtesting.in/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://practice.automationtesting.in/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://practice.automationtesting.in/__cypress/runner/cypress_runner.js:120587:66)\n    at Context.then (https://practice.automationtesting.in/__cypress/runner/cypress_runner.js:120838:21)\n    at wrapped (https://practice.automationtesting.in/__cypress/runner/cypress_runner.js:141133:19)",
+                    "diff": null
+                  },
+                  "uuid": "2c5937f0-3ccb-4903-b385-3126f5bfd82f",
+                  "parentUUID": "7d42b426-0641-4994-8a77-6339651bbc41",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should display an error when required billing fields are missing - phone",
+                  "fullTitle": "Purchase Proceed as a guest should display an error when required billing fields are missing - phone",
+                  "timedOut": null,
+                  "duration": 10033,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('@guest').then(guest => {\n  cy.fillInBillingDetails(guest);\n});\ncy.get('#billing_phone').clear(); // Clear the phone field to trigger the error\ncy.get('#place_order').click();\ncy.get('.woocommerce-error').should('contain', 'Billing Phone is a required field.').compareSnapshot('billing-details-error');",
+                  "err": {},
+                  "uuid": "2f9e633d-c54e-4d8c-b78c-14b437d5ed9c",
+                  "parentUUID": "7d42b426-0641-4994-8a77-6339651bbc41",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "2f9e633d-c54e-4d8c-b78c-14b437d5ed9c"
+              ],
+              "failures": [
+                "2c5937f0-3ccb-4903-b385-3126f5bfd82f"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 26394,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [
+            "245d0838-706b-4c56-a726-bd3bd28a2547",
+            "4286c53a-01b8-4f43-a21d-1d327160e020",
+            "b9c3009a-f3b1-4bec-bc9b-0beceb3a63b8"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 14717,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "charts": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

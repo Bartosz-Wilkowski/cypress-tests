@@ -1,7 +1,7 @@
 const config = {
   ROOT_DIR: 'cypress/e2e',
-  REPORT_DIR: 'cypress/e2e/visual-testing-report',
-  SCREENSHOTS_DIR: 'cypress/e2e/visual-testing-screenshots',
+  REPORT_DIR: 'visual-testing-report',
+  SCREENSHOTS_DIR: 'visual-testing-screenshots',
   FAILURE_THRESHOLD: 0,
   RETRY_OPTIONS: {
     log: true,

@@ -1,72 +1,78 @@
 import { faker } from '@faker-js/faker'
+import { hexToRgb } from '../support/commands'
 
-describe('Authentication', () => {
+describe('Authentication', function () {
 
   // Ignore cross-origin script errors
   Cypress.on('uncaught:exception', (err, runnable) => {
-    // Returning false prevents Cypress from failing the test
+    // returning false prevents Cypress from failing the test
     return false;
   })
 
-  beforeEach(() => {
+  beforeEach(function () {
     cy.visit('/my-account/')
   })
 
-  context('Registration', () => {
+  context('Registration', function () {
 
-    var user, email
-
-    beforeEach(() => {
-      // Set user data using faker.js
-      email = faker.internet.email();
-      user = {
+    beforeEach(function () {
+      const email = faker.internet.email();
+      const user = {
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
         email: email,
         userName: email.split('@')[0],
         password: faker.internet.password()
       }
+      cy.wrap(user).as('user');
     })
 
-    it('should register a new user', () => {
-      cy.get('#reg_email').type(user.email)
-      cy.get('#reg_password').type(user.password)
-      cy.get('[value="Register"]').click()
-      cy.get('.woocommerce-MyAccount-content > p').first().should('contain.text', `Hello ${user.userName} (not ${user.userName}? Sign out)`)
+    it('should register a new user', function () {
+      cy.get('@user').then(user => {
+        cy.get('#reg_email').type(user.email)
+        cy.get('#reg_password').type(user.password)
+        cy.get('[value="Register"]').click()
+        cy.get('.woocommerce-MyAccount-content > p').first().should('contain.text', `Hello ${user.userName} (not ${user.userName}? Sign out)`)
+      })
     })
 
-    it('should display an error for invalid email', () => {
-      cy.get('#reg_email').type('invalid-email@test')
-      cy.get('#reg_password').type(user.password)
-      cy.get('[value="Register"]').click()
-      cy.get('.woocommerce-error').should('contain.text', 'Error: Please provide a valid email address.')
+    it('should display an error for invalid email', function () {
+      cy.get('@user').then(user => {
+        cy.get('#reg_email').type('invalid-email@test')
+        cy.get('#reg_password').type(user.password)
+        cy.get('[value="Register"]').click()
+        cy.get('.woocommerce-error').should('contain.text', 'Error: Please provide a valid email address.')
+      })
     })
 
-    it('should display an error for empty email', () => {
-      cy.get('#reg_email').should('be.empty')
-      cy.get('#reg_password').type(user.password)
-      cy.get('[value="Register"]').click()
-      cy.get('.woocommerce-error').should('contain.text', 'Error: Please provide a valid email address.')
+    it('should display an error for empty email', function () {
+      cy.get('@user').then(user => {
+        cy.get('#reg_email').should('be.empty')
+        cy.get('#reg_password').type(user.password)
+        cy.get('[value="Register"]').click()
+        cy.get('.woocommerce-error').should('contain.text', 'Error: Please provide a valid email address.')
+      })
     })
 
-    it('should display an error for empty password', () => {
-      cy.get('#reg_email').type(user.email)
-      cy.get('#reg_password').should('be.empty')
-      cy.get(':nth-child(4) > .button').click()
-      cy.get('.woocommerce-error').should('contain.text', 'Error: Please enter an account password.')
+    it('should display an error for empty password', function () {
+      cy.get('@user').then(user => {
+        cy.get('#reg_email').type(user.email)
+        cy.get('#reg_password').should('be.empty')
+        cy.get(':nth-child(4) > .button').click()
+        cy.get('.woocommerce-error').should('contain.text', 'Error: Please enter an account password.')
+      })
     })
 
     const passwords = [
       { type: 'very weak', value: '123', error: 'Very weak - Please enter a stronger password.', bgcolor: '#f1adad' },
-      { type: 'weak', value: '123A', error: 'Very weak - Please enter a stronger password.', bgcolor: '#fbc5a9' },
+      { type: 'weak', value: '123A', error: 'Weak - Please enter a stronger password.', bgcolor: '#fbc5a9' },
       { type: 'medium', value: '123AaT3st!', error: 'Medium', bgcolor: '#ffe399' },
       { type: 'strong', value: '123AaT3st!a', error: 'Strong', bgcolor: '#c1e1b9' },
-
     ]
 
     passwords.forEach(password => {
-      it(`should validate password strength as ${password.type}`, () => {
-        cy.get('#reg_password').type(password.value, { delay: 0 })
+      it(`should validate password strength as ${password.type}`, function () {
+        cy.get('#reg_password').type(password.value)
         if (password.type === 'very weak' || password.type === 'weak') {
           cy.get('.woocommerce-password-hint')
             .should('be.visible')
@@ -75,80 +81,79 @@ describe('Authentication', () => {
         else {
           cy.get('.woocommerce-password-hint').should('not.exist')
         }
-        cy.get('.woocommerce-password-strength').should('have.css', 'background-color', password.bgcolor)
+        cy.get('.woocommerce-password-strength').should('have.css', 'background-color', hexToRgb(password.bgcolor))
         cy.get('.woocommerce-password-strength').should('have.text', password.error)
       })
     })
 
   })
 
-  context('Login', () => {
-
-    var email, username, password
+  context('Login', function () {
 
     beforeEach(function () {
-      // load exisitng user data
-      cy.fixture('user-data.json').as('registeredUser').then(() => {
-        email = this.registeredUser.email
-        username = this.registeredUser.username
-        password = this.registeredUser.password
+      // Load existing user data
+      cy.fixture('user-data.json').as('registeredUser')
+    })
+
+    it('should login a user with valid username and password', function () {
+      cy.get('@registeredUser').then(user => {
+        cy.get('#username').type(user.username)
+        cy.get('#password').type(user.password)
+        cy.get('[name="login"]').click()
+        cy.get('.woocommerce-MyAccount-content > p').first().should('contain.text', `Hello ${user.username} (not ${user.username}? Sign out)`)
       })
     })
 
-    it('should login a user with valid username and password', () => {
-      cy.get('#username').type(username)
-      cy.get('#password').type(password)
-      cy.get('[name="login"]').click()
-      cy.get('.woocommerce-MyAccount-content > p').first().should('contain.text', `Hello ${username} (not ${username}? Sign out)`)
+    it('should login a user with valid email and password', function () {
+      cy.get('@registeredUser').then(user => {
+        cy.get('#username').type(user.email)
+        cy.get('#password').type(user.password)
+        cy.get('[name="login"]').click()
+        cy.get('.woocommerce-MyAccount-content > p').first().should('contain.text', `Hello ${user.username} (not ${user.username}? Sign out)`)
+      })
     })
 
-    it('should login a user with valid email and password', () => {
-      cy.get('#username').type(email)
-      cy.get('#password').type(password)
-      cy.get('[name="login"]').click()
-      cy.get('.woocommerce-MyAccount-content > p').first().should('contain.text', `Hello ${username} (not ${username}? Sign out)`)
-    })
-
-    it('should display an error for invalid email', () => {
+    it('should display an error for invalid email', function () {
       cy.get('#username').type('invalid-email1212@domain.random')
       cy.get('#password').type('12')
       cy.get('[name="login"]').click()
       cy.get('.woocommerce-error').should('contain.text', 'Error: A user could not be found with this email address.')
     })
 
-    it('should display an error for empty password', () => {
-      cy.get('#username').type(email)
-      cy.get('[name="login"]').click()
-      cy.get('.woocommerce-error').should('contain.text', 'Error: Password is required.')
+    it('should display an error for empty password', function () {
+      cy.get('@registeredUser').then(user => {
+        cy.get('#username').type(user.email)
+        cy.get('[name="login"]').click()
+        cy.get('.woocommerce-error').should('contain.text', 'Error: Password is required.')
+      })
     })
 
-    it('should mask the password', () => {
-      cy.get('#password').type(password, { delay: 0 })
-      cy.get('#password').should('have.attr', 'type', 'password')
-      cy.get('#password').compareSnapshot('masked-password')
+    it('should mask the password', function () {
+      cy.get('@registeredUser').then(user => {
+        cy.get('#password').type(user.password, { delay: 0 })
+        cy.get('#password').should('have.attr', 'type', 'password')
+        cy.get('#password').compareSnapshot('masked-password')
+      })
     })
 
   })
 
-  context('Logout', () => {
-
-    var email, password
+  context('Logout', function () {
 
     beforeEach(function () {
-      // load exisitng user data
-      cy.fixture('user-data.json').as('registeredUser').then(() => {
-        email = this.registeredUser.email
-        password = this.registeredUser.password
-        cy.login(email, password)
+      // Load exisitng user data
+      cy.fixture('user-data.json').as('registeredUser')
+      cy.get('@registeredUser').then(registeredUser => {
+        cy.login(registeredUser.email, registeredUser.password)
       })
     })
 
-    it("should logout a user using 'Sign out' link", () => {
+    it("should logout a user using 'Sign out' link", function () {
       cy.contains('a', 'Sign out').click()
       cy.location('pathname').should('include', '/my-account/')
     })
 
-    it("should logout a user using 'Logout' link", () => {
+    it("should logout a user using 'Logout' link", function () {
       cy.contains('a', 'Logout').click()
       cy.location('pathname').should('include', '/my-account/')
     })
